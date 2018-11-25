@@ -41,6 +41,12 @@ int ru=func();
             cout << SearchWord << " found on line: " << counter << "\n\n";
             break;
         }
+        if(FileSearch.eof()==true)
+        {
+
+            cout<<"0"<<endl;
+            break;
+        }
     }
     return 0;
 }
