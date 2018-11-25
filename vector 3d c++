@@ -1,0 +1,223 @@
+
+// vector geometry by Abhilash Majumder
+
+#include<math.h>
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class vector3d{
+
+private :
+    int x;int y;int z;
+public:
+    vector3d(int x1=0,int y1=0,int z1=0)
+    {
+        x=x1;
+        y=y1;
+        z=z1;
+    }
+
+    friend vector3d operator +( vector3d const &,vector3d  const &);
+
+void print();
+friend vector3d operator -(vector3d const &,vector3d const &);
+friend  int dotproduct(vector3d const &,vector3d const &);
+
+friend vector3d operator *(vector3d const &,vector3d const &);
+friend float magnitude(vector3d const &);
+friend float ctheta(vector3d const &,vector3d const &);
+friend vector3d dp(vector3d const &,vector3d const &);
+friend int crossprod(vector3d const &,vector3d const &);
+friend vector3d cp(vector3d const &,vector3d const &);
+friend float stheta(vector3d const &,vector3d const &);
+friend float resultant(vector3d const &,vector3d const &);
+};
+
+
+
+//dot product magnitude
+int dotproduct(vector3d const &a,vector3d const &b)
+{
+    int s=a.x*b.x;
+    int p=a.y*b.y;
+    int q=a.z*b.z;
+
+    return (s+q+p);
+}
+//addition
+vector3d operator +(vector3d const &a,vector3d const &b)
+{
+
+    return vector3d(a.x+b.x,a.y+b.y,a.z+b.z);
+}
+//print vector
+void vector3d:: print()
+{
+
+          cout << x <<" "<< y <<" "<<z<< endl;
+
+}
+//subtraction
+vector3d operator -(vector3d const &a,vector3d const &b)
+{
+
+    return vector3d(a.x-b.x,a.y-b.y,a.z-b.z);
+}
+//product
+vector3d operator *(vector3d const &a,vector3d const &b)
+{
+
+  return vector3d(a.x*b.x,a.y*b.y,a.z*b.z);
+
+}
+//magnitude
+float magnitude(vector3d const &a)
+{
+    float j=sqrt((a.x*a.x)+(a.y*a.y)+(a.z*a.z));
+    return j;
+
+}
+
+//cosine theta
+float ctheta(vector3d const &a,vector3d const &b)
+{
+    float v=magnitude(a);
+    float j=magnitude(b);
+    float prod= v*j;
+    int d=dotproduct(a,b);
+    float ju=(float) d;
+    ju/=prod;
+    return ju;
+
+
+
+
+}
+//cross product
+int crossprod(vector3d const &a,vector3d const &b)
+{
+
+   int s=(a.y-b.z)*(a.z-b.y);
+   int q=(a.z-b.x)*(a.x-b.z);
+   int r=(a.x-b.y)*(a.y-b.x);
+   return (s+q+r);
+
+
+
+}
+//cross product vector
+vector3d cp(vector3d const &a,vector3d const &b)
+{
+  int s=(a.y-b.z)*(a.z-b.y);
+   int q=(a.z-b.x)*(a.x-b.z);
+   int r=(a.x-b.y)*(a.y-b.x);
+ return vector3d(s,q,r);
+
+}
+
+//dot procut vector
+vector3d dp(vector3d const &a,vector3d const &b)
+{
+
+    int s=a.x*b.x;
+    int p=a.y*b.y;
+    int q=a.z*b.z;
+return vector3d(s,p,q);
+
+
+}
+
+//sin theta
+float stheta(vector3d const &a,vector3d const &b)
+{
+    int s=crossprod(a,b);
+    float ju=(float) s;
+    float yu=magnitude(a);
+    float ru=magnitude(b);
+    ru*=yu;
+    ju/=ru;
+    return ju;
+
+
+
+}
+//resultant of two vectors
+float resultant(vector3d const &a,vector3d const &b)
+{
+
+    float s=magnitude(a);
+    float d=magnitude(b);
+    float angle=ctheta(a,b);
+    float result= (s*s) + (2*s*d*angle) + (d*d);
+    result=sqrt(result);
+    return result;
+
+
+
+
+
+
+}
+
+
+
+int main()
+{
+cout<<"insert values of first vector a.x,a.y,a.z"<<endl;
+int qw,we,er;
+cin>>qw;
+cin>>we;
+cin>>er;
+cout<<"insert values of second vector b.x,b.y,b.z"<<endl;
+int w,e,rt;
+cin>>w;
+cin>>e;
+cin>>rt;
+
+
+
+    vector3d a(qw,we,er) ,b(w,e,rt);
+
+    vector3d c=a+b;
+cout<<"addition ";
+c.print();
+
+vector3d d=a-b;
+cout<<"subtraction ";
+d.print();
+
+int yu=dotproduct(a,b);
+cout<<"dot product"<<" "<<yu<<endl;
+
+vector3d fd=a*b;
+cout<<"multiply ";
+fd.print();
+
+float gh= magnitude(a);
+float fg=magnitude(b);
+
+cout<<"magnitude of a "<<gh<<endl;
+cout<<"magnitude of b "<<fg<<endl;
+fd=dp(a,b);
+cout<<"dot product vector ";
+fd.print();
+gh= ctheta(a,b);
+cout<<"cosine theta angle between vectors "<<gh<<endl;
+int oi=crossprod(a,b);
+cout<<"magnitude of cross product "<<oi<<endl;
+
+
+fd=cp(a,b);
+ cout<<"cross product vector ";
+ fd.print();
+
+ gh=stheta(a,b);
+ cout<<"sin theta angle between vectors "<<gh<<endl;
+
+gh=resultant(a,b);
+cout<<"resultant of two vectors "<<gh<<endl;
+
+
+    return 0;
+}
